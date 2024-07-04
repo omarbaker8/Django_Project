@@ -58,8 +58,8 @@ transition: transform 0.1s ease-in-out, z-index 0.1s step-start;
             </div>
         {% empty %}
             <div class="col-12">
-                <div class="alert alert-info" role="alert">
-                    You don't have any projects yet. <a href="#" class="alert-link">Create a new project</a> to get started!
+                <div class="card-title text-white">
+                    You don't have any projects yet. <a href="{% url 'project-create' %}">Create a new project</a> to get started!
                 </div>
             </div>
         {% endfor %}
