@@ -15,13 +15,14 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+DEBUG ='True'
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-xva+@!$t*1fh+_8-dzn#0xngc@d8!na_d4(cdbg#d2%0w-x^u4')
 
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+
 
 
 ALLOWED_HOSTS = ['*']
