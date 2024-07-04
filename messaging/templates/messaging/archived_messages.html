@@ -1,0 +1,14 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<h2>Archived Messages</h2>
+{% for message in messages %}
+    <div>
+        <p>From: {{ message.sender }}</p>
+        <p>{{ message.content }}</p>
+        <p>{{ message.timestamp }}</p>
+        <a href="{% url 'unarchive_message' message.id %}">Unarchive</a>
+    </div>
+    <hr>
+{% endfor %}
+{% endblock %}

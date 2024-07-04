@@ -1,0 +1,62 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8 ">
+            <div class="card mt-5">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">New Project</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <div class="form-group mt-4">
+                            <button class="btn btn-primary" type="submit">Create Project</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<style>
+    .select2-container {
+        width: 100% !important;
+    }
+    .select2-selection--multiple {
+        min-height: 38px;
+    }
+    .row.justify-content-center{
+        margin-bottom: 200px;
+    }
+</style>
+{% endblock %}
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        flatpickr("#id_start_date", {
+            dateFormat: "Y-m-d",
+            minDate: "today"
+        });
+        flatpickr("#id_end_date", {
+            dateFormat: "Y-m-d",
+            minDate: "today"
+        });
+        
+        // Initialize Select2 for stakeholders
+        $('#id_stakeholders').select2({
+            placeholder: "Select stakeholders",
+            allowClear: true
+        });
+    });
+</script>
+{% endblock %}

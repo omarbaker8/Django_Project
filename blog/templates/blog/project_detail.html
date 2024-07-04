@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+<article id="project-details" class="media content-section mt-5 pt-5">
+  <h1>{{ project.name }}</h1>
+  <p class="article-content">{{ project.description }}</p>
+  <ul class="list-group list-group-flush mb-3">
+    <li class="list-group-item" id="project-info"><strong>Start Date:</strong> {{ project.start_date|date:"M d, Y" }}</li>
+    <li class="list-group-item"id="project-info"><strong>End Date:</strong> {{ project.end_date|date:"M d, Y" }}</li>
+    <li class="list-group>item"id="project-info"><strong>Status:</strong> <span class="badge {% if project.status == 'In Progress' %}bg-warning{% elif project.status == 'Completed' %}bg-success{% else %}bg-info{% endif %}">{{ project.status }}</span></li>
+  </ul>
+  <p><strong>Owner:</strong> {{ project.owner.username }}</p>
+  <p><strong>Stakeholders:</strong>
+    {% for stakeholder in project.stakeholders.all %}
+      {% if not forloop.first %}, {% endif %}
+      {{ stakeholder.username }}
+    {% empty %}
+      None assigned
+    {% endfor %}
+  </p>
+</article>
+<div id="comment-section" class="content-section">
+  {% if comments %}
+    <h3 class="text-white">Comments</h3>
+    {% for comment in comments %}
+    <div class="mt-4 mb-4">
+      <article class="media content-section text-white m-0 p-0">
+        <div class="comment-header-wrapper pt-3 pr-3 pl-3 pb-0 mb-0" >
+          <div class="media-body text-white">
+            <div class="article-metadata text-white">
+              <a class="mr-2" href="#">{{ comment.author }}</a>
+              <small class="text-muted">{{ comment.date_posted }}</small>
+            </div>
+          </div>
+        </div>
+        <div class="comment-body-wrapper pt-3 pr-3 pl-3">
+          <p class="article-content text-white" id="comment-data">{{ comment.content|safe }}</p>
+        </div>
+      </article>
+    </div>
+    {% endfor %}
+  {% else %}
+    <h3 class="text-white">No comments yet!</h3>
+  {% endif %}
+  <div id="post-comment" class="content-section">
+    <form method="POST">
+      {% csrf_token %}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4 text-white">Leave a Comment</legend>
+        <div id = "comment-form">
+          {{ form|crispy }}
+        </div>
+      </fieldset>
+      <div class="form-group">
+        <button class="btn btn-outline-info" type="submit">Post Comment</button>
+      </div>
+    </form>
+  </div>
+</div>     
+{% endblock content %}
