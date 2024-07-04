@@ -7,7 +7,7 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post,Project,Comments
+from .models import Project,Comments
 from .forms import CommentForm
 from django.contrib import messages
 from django.shortcuts import redirect
